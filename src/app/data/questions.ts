@@ -5,6 +5,17 @@ import {
 } from "@/data/types";
 import { objectifyTitles } from "@/data/utils";
 
+export const entryQuestion = {
+  [QuestionIds.entry]: {
+    id: QuestionIds.entry,
+    title: 'what is your name?',
+    // questionType: QuestionTypes.text,
+    questionType: QuestionTypes.singleAnswer,
+    nextQuestionId: QuestionIds.gender,
+    answers: objectifyTitles(['paul', 'tiffany']),
+  },
+};
+
 const starters = {
   [QuestionIds.gender]: {
     id: QuestionIds.gender,
@@ -186,6 +197,7 @@ export const questionsPool: Record<
   QuestionIds,
   BaseQuestion
 > = {
+  ...entryQuestion,
   ...starters,
   ...singleFLow,
   ...relationshipFlow,

@@ -13,6 +13,7 @@ export enum QuestionIds {
   sexPriority = 'sex-priority',
   relationshipGoals = 'relationship-goals',
   source = 'source',
+  entry = 'entry',
 }
 
 export enum QuestionTypes {

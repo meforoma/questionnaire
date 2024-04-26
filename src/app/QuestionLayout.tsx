@@ -1,11 +1,11 @@
 'use client'
 
 import { FC } from "react";
-import { BaseAnswer, BaseQuestion } from "@/data/types";
+import { BaseAnswer, BaseQuestion, QuestionIds } from "@/data/types";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@@/redux/store";
-import { updateAnswer } from "@@/redux/features/answersSlice";
+import { updateAnswer, resetAnswers } from "@@/redux/features/answersSlice";
 
 type Props = {
   question: BaseQuestion;
@@ -22,6 +22,10 @@ export const QuestionLayout: FC<Props> = ({
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
+  const navigateToEntryQuestion = () => {
+    router.push(`/question/${QuestionIds.entry}`);
+  }
+
   const navigateToNextQuestion = (answer: BaseAnswer) => {
     if (question.nextQuestionId) {
       router.push(`/question/${question.nextQuestionId}`)
@@ -35,28 +39,39 @@ export const QuestionLayout: FC<Props> = ({
   const onClick = (answer: BaseAnswer) => {
     if (isFinalQuestion) {
       // route to pre-submit summary page
+      router.push(`/question/finish`)
       console.log('route to pre-submit summary page');
     }
 
     dispatch(updateAnswer({
       questionId: question.id,
-      answer: answer.title,
+      answer: [answer.title],
     }));
 
     navigateToNextQuestion(answer);
   }
 
-  const currentAnswer = useAppSelector((state) => (
-    state.answers
-  ))[question.id];
+  const persistedAnswers = useAppSelector((state) => (
+    state.persistedAnswers
+  ));
+
+  const answerTitles = persistedAnswers[question.id]?.titles;
 
   return (
     <div>
-      {/*
-        router back button
-        highlight current answer from redux store
-      */}
       {isFinalQuestion && `heads up, final question!`}
+
+      <button onClick={() => router.back()}>
+        back
+      </button>
+
+      <button onClick={() => {
+        dispatch(resetAnswers());
+        navigateToEntryQuestion();
+      }}>
+        reset
+      </button>
+
       <h1>{question.title}</h1>
       <p>{question.subTitle}</p>
       <ul>
@@ -65,7 +80,7 @@ export const QuestionLayout: FC<Props> = ({
             <button
               onClick={() => onClick(answer)}
               style={
-                answer.title === currentAnswer
+                answerTitles?.includes(answer.title)
                   ? { backgroundColor: 'lightblue' }
                   : {}
               }
