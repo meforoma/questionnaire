@@ -2,8 +2,20 @@ import {
   BaseQuestion,
   QuestionIds,
   QuestionTypes,
+  Replacements,
 } from "@/data/types";
 import { objectifyTitles } from "@/data/utils";
+
+export const replacements: Replacements = {
+  [QuestionIds.isParent]: {
+    yes: ' who has children',
+    no: '',
+  },
+  [QuestionIds.isSingleParent]: {
+    yes: ' who has children',
+    no: '',
+  },
+};
 
 export const entryQuestion = {
   [QuestionIds.entry]: {
@@ -13,6 +25,33 @@ export const entryQuestion = {
     questionType: QuestionTypes.singleAnswer,
     nextQuestionId: QuestionIds.gender,
     answers: objectifyTitles(['paul', 'tiffany']),
+  },
+};
+
+const finalQuestion = {
+  [QuestionIds.final]: {
+    id: QuestionIds.final,
+    title: `where did you hear about us?`,
+    questionType: QuestionTypes.singleAnswer,
+    isFinalQuestion: true,
+    answers: objectifyTitles([
+      'Poster or Billboard',
+      'Friend or Family',
+      'Instagram',
+      'Direct Mail or Package Insert',
+      'Online TV or Streaming TV',
+      'TV',
+      'Radio',
+      'Search Engine (Google, Bing, etc.)',
+      'Newspaper or Magazine',
+      'Facebook',
+      'Blog Post or Website Review',
+      'Podcast',
+      'Influencer',
+      'Youtube',
+      'Pinterest',
+      'Other',
+    ]),
   },
 };
 
@@ -51,7 +90,7 @@ const singleFLow = {
   },
   [QuestionIds.relationshipStatement]: {
     id: QuestionIds.relationshipStatement,
-    title: `{Gender} {who have children (if have children)} need a slightly different approach to improve their relationship. Which statement best describes you?`,
+    title: `single {{${QuestionIds.gender}}}{{${QuestionIds.isSingleParent}}} need a slightly different approach to improve their relationship. Which statement best describes you?`,
     questionType: QuestionTypes.singleAnswer,
     nextQuestionId: QuestionIds.tendToOverthink,
     answers: objectifyTitles([
@@ -64,6 +103,7 @@ const singleFLow = {
     id: QuestionIds.tendToOverthink,
     title: `do you tend to overthink?`,
     questionType: QuestionTypes.singleAnswer,
+    nextInfoId: QuestionIds.infoHowItWorks,
     answers: [
       {
         title: `yes`,
@@ -79,7 +119,7 @@ const singleFLow = {
     id: QuestionIds.traitsMostImportant,
     title: `what is most important to you?`,
     questionType: QuestionTypes.singleAnswer,
-    nextQuestionId: QuestionIds.source,
+    nextQuestionId: QuestionIds.final,
     answers: objectifyTitles([
       `success`,
       `romance`,
@@ -91,7 +131,7 @@ const singleFLow = {
     id: QuestionIds.traitsEmotionalControl,
     title: `is emotional control tricky for you?`,
     questionType: QuestionTypes.singleAnswer,
-    nextQuestionId: QuestionIds.source,
+    nextQuestionId: QuestionIds.final,
     answers: objectifyTitles([
       `yes`,
       `sometimes`,
@@ -111,8 +151,7 @@ const relationshipFlow = {
   },
   [QuestionIds.previousRelationship]: {
     id: QuestionIds.previousRelationship,
-    // single !?
-    title: `single {gender} {who have children (if have children)} need a slightly different approach to find their perfect partner. But first, how did you feel in your last relationship?`,
+    title: `{{${QuestionIds.gender}}}{{${QuestionIds.isParent}}} need a slightly different approach to find their perfect partner. But first, how did you feel in your last relationship?`,
     questionType: QuestionTypes.singleAnswer,
     nextQuestionId: QuestionIds.partnerType,
     answers: objectifyTitles([
@@ -158,7 +197,7 @@ const relationshipFlow = {
     id: QuestionIds.relationshipGoals,
     title: `when you think about your relationship goals, you feel...?`,
     questionType: QuestionTypes.singleAnswer,
-    nextQuestionId: QuestionIds.source,
+    nextQuestionId: QuestionIds.final,
     answers: objectifyTitles([
       `optimistic! they are totally doable, with some guidance`,
       `cautious. i’ve struggled before, but i’m hopeful`,
@@ -167,33 +206,21 @@ const relationshipFlow = {
   },
 };
 
-const finals = {
-  [QuestionIds.source]: {
-    id: QuestionIds.source,
-    title: `where did you hear about us?`,
+const info = {
+  [QuestionIds.infoHowItWorks]: {
+    id: QuestionIds.infoHowItWorks,
+    title: 'so how does it work?',
+    subTitle: 'we analyze hundreds of data points to create your unique astrological blueprint. This is combined with AI to tailor-make your astrological insights, based on your answers. We’re going to change your relationship with astrology.',
     questionType: QuestionTypes.singleAnswer,
-    answers: objectifyTitles([
-      'Poster or Billboard',
-      'Friend or Family',
-      'Instagram',
-      'Direct Mail or Package Insert',
-      'Online TV or Streaming TV',
-      'TV',
-      'Radio',
-      'Search Engine (Google, Bing, etc.)',
-      'Newspaper or Magazine',
-      'Facebook',
-      'Blog Post or Website Review',
-      'Podcast',
-      'Influencer',
-      'Youtube',
-      'Pinterest',
-      'Other',
-    ]),
+    answers: [
+      {
+        title: 'next',
+      },
+    ],
   },
 };
 
-export const questionsPool: Record<
+export const configPool: Record<
   QuestionIds,
   BaseQuestion
 > = {
@@ -201,5 +228,6 @@ export const questionsPool: Record<
   ...starters,
   ...singleFLow,
   ...relationshipFlow,
-  ...finals,
+  ...finalQuestion,
+  ...info,
 };

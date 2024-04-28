@@ -1,17 +1,17 @@
 import {
-  questionsPool,
+  configPool,
 } from "@/data/questions"
 import {
   BaseQuestion,
   QuestionIds,
 } from "@/data/types";
-import { QuestionLayout } from "@/QuestionLayout";
+import { QuestionLayout } from "@@/layouts/QuestionLayout";
 import ReduxProvider from "@@/redux/provider";
 
 export const getStaticPaths = async () => {
-  const paths = Object.values(QuestionIds)
-    .map((questionId) => ({
-      params: { questionId },
+  const paths = Object.values({...QuestionIds})
+    .map((id) => ({
+      params: { id },
     }));
 
   // other routes -> 404
@@ -19,11 +19,11 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = ({ params }: {
-    params: { questionId: QuestionIds },
+    params: { id: QuestionIds},
   }) => {
-  const question = questionsPool[params.questionId];
+  const config = configPool[params.id];
 
-  return { props: { question } }
+  return { props: { question: config } }
 }
 
 export default function Question(

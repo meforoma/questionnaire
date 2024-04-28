@@ -1,4 +1,6 @@
 export enum QuestionIds {
+  entry = 'entry',
+  final = 'final',
   gender = 'gender',
   relationship = 'relationship',
   isSingleParent = 'is-single-parent',
@@ -12,9 +14,10 @@ export enum QuestionIds {
   traitsEmotionalControl = 'traits-emotional-control',
   sexPriority = 'sex-priority',
   relationshipGoals = 'relationship-goals',
-  source = 'source',
-  entry = 'entry',
+  infoHowItWorks = 'info-how-it-works',
 }
+
+export type Replacements = Record<string, Record<string, string>>;
 
 export enum QuestionTypes {
   singleAnswer = 'singleOption',
@@ -24,14 +27,16 @@ export enum QuestionTypes {
 
 export interface BaseAnswer {
   title: string;
-  nextQuestionId?: QuestionIds;//?
+  nextQuestionId?: QuestionIds;
 }
 
 export interface BaseQuestion {
   id: QuestionIds;
   title: string;
   questionType: QuestionTypes;
-  nextQuestionId?: QuestionIds;//?
+  nextQuestionId?: QuestionIds;
+  nextInfoId?: InfoIds;
   answers: BaseAnswer[];
   subTitle?: string;
+  isFinalQuestion?: boolean;
 }
