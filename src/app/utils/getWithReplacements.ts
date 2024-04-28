@@ -1,6 +1,6 @@
 import { PersistedAnswers, RootState } from "@@/redux/store";
 import { toSentenceCase } from "@/utils/toSentenceCase";
-import { replacements } from "@/data/questions";
+import { replacements } from "@/data/config";
 
 export const getWithReplacements = (
   persistedAnswers: PersistedAnswers,

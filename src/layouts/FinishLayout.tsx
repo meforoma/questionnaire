@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import { useAppSelector } from "@@/redux/store";
-import { configPool } from "@/data/questions";
+import { configPool } from "@/data/config";
 import { QuestionIds } from "@/data/types";
 import { useSummaryReplacements } from "@/utils/useSummaryReplacements";
 import { Header } from "@@/components/Header";

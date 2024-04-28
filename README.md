@@ -1,4 +1,19 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+The project is a survey builder that allows creating surveys based on configurable questions and info screen(s) - using a [`config.ts`](src/app/data/config.ts) file.
+
+Info screens do not impact questions branching, - intended branching is persisted.
+
+The project utilizes static site generation, using `Next.js getStaticPaths`
+
+Configuration supports the following question types:
+- `text` - a classic text input
+- `singleChoice` - clicked button registers the answer
+- `multipleChoice` - all checked choices are registered.
+
+Functionality supports:
+- purging the onward answers when the user goes back to a previous question and changes the answer
+- persisting the answers with redux store
+- a summary screen with all the answers registered
+- a reset to clear the answers and start over
 
 ## Getting Started
 

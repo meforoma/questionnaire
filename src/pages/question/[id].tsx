@@ -1,6 +1,6 @@
 import {
   configPool,
-} from "@/data/questions"
+} from "@/data/config"
 import {
   BaseQuestion,
   QuestionIds,
