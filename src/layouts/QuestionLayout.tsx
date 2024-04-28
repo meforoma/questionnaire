@@ -14,6 +14,7 @@ import { LOCAL_STORAGE_KEYS } from "@/utils/constants";
 import { useReplacements } from "@/utils/useReplacements";
 import { getAnswerValueAndNextQuestionId } from "@/utils/getAnswerValueAndNextQuestionId";
 import { useGetQuestionComponent } from "@/utils/useGetQuestionComponent";
+import { Header } from "@@/components/Header";
 
 type Props = {
   question: BaseQuestion;
@@ -78,20 +79,8 @@ export const QuestionLayout: FC<Props> = ({
   )
 
   return (
-    // layout Header
     <div>
-      <IconButton
-        onClick={() => router.back()}
-      >
-        {'<'}
-      </IconButton>
-
-      <button onClick={() => {
-        dispatch(resetAnswers());
-        navigateToEntryQuestion();
-      }}>
-        reset
-      </button>
+      <Header />
 
       <h1>{normalisedTitle}</h1>
       {normalisedSubTitle && (
