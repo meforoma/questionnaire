@@ -1,16 +1,19 @@
 'use client'
 
 import { FC } from "react";
-import { BaseAnswer, BaseQuestion, QuestionIds } from "@/data/types";
+import { BaseAnswer, BaseQuestion, QuestionIds, QuestionTypes } from "@/data/types";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@@/redux/store";
 import { updateAnswer, resetAnswers } from "@@/redux/features/answersSlice";
-import { IconButton, ListItemButton } from "@mui/material";
+import {
+  IconButton,
+} from "@mui/material";
 import { useLocalStorage } from "@/utils/useLocalStorage";
 import { LOCAL_STORAGE_KEYS } from "@/utils/constants";
 import { useReplacements } from "@/utils/useReplacements";
-import { toSentenceCase } from "@/utils/toSentenceCase";
+import { getAnswerValueAndNextQuestionId } from "@/utils/getAnswerValueAndNextQuestionId";
+import { useGetQuestionComponent } from "@/utils/useGetQuestionComponent";
 
 type Props = {
   question: BaseQuestion;
@@ -39,19 +42,18 @@ export const QuestionLayout: FC<Props> = ({
     }`)
   }
 
-  const submitAndNext = (answer: BaseAnswer) => {
-    const nextQuestionId = (
-      question.nextQuestionId || answer.nextQuestionId
+  const submitAndNext = (answer: BaseAnswer | string | string[]) => {
+    const [answerValue, nextQuestionId] = getAnswerValueAndNextQuestionId(
+      answer,
+      question,
     );
 
+    dispatch(updateAnswer({
+      questionId: question.id,
+      answer: answerValue,
+    }));
+
     if (nextQuestionId) {
-      console.log('nextQuestionId', nextQuestionId, `dispatch answer and setLocalStore`);
-
-      dispatch(updateAnswer({
-        questionId: question.id,
-        answer: [answer.title],
-      }));
-
       storeNextQuestionId(nextQuestionId);
     }
 
@@ -64,17 +66,19 @@ export const QuestionLayout: FC<Props> = ({
     navigateToNext(nextQuestionId);
   }
 
-  const persistedState = useAppSelector((state) => (state));
+  const persistedAnswers = useAppSelector((state) => (state.persistedAnswers));
 
-  const answerTitles = (
-    persistedState.persistedAnswers[question.id]?.titles
-  );
+  const answerTitles = persistedAnswers[question.id]?.titles;
 
   const normalisedTitle = useReplacements(question.title);
   const normalisedSubTitle = useReplacements(question.subTitle || '');
-console.log('normalisedSubTitle', !!normalisedSubTitle);
+
+  const Component = useGetQuestionComponent(
+    question.questionType,
+  )
 
   return (
+    // layout Header
     <div>
       <IconButton
         onClick={() => router.back()}
@@ -94,32 +98,11 @@ console.log('normalisedSubTitle', !!normalisedSubTitle);
         <p>{normalisedSubTitle}</p>
       )}
 
-      {/*
-        +QuestionTypes.singleAnswer
-        QuestionTypes.multipleAnswers: onClick -> setState string[]; onSubmit
-        QuestionTypes.text: form + submit button
-      */}
-        {question.answers.map((answer) => (
-          <div key={answer.title} style={{ margin: '12px 0' }}>
-            <ListItemButton
-              onClick={() => submitAndNext(answer)}
-              style={answerTitles?.includes(answer.title)
-                ? {
-                  background: `linear-gradient(
-                    to bottom,
-                    #141333 0%,
-                    #202261 44%,
-                    #543C97 80%,
-                    #6939A1 97%
-                  )`,
-                  color: "white",
-                }
-                : {}}
-            >
-              {toSentenceCase(answer.title)}
-            </ListItemButton>
-          </div>
-        ))}
+      <Component
+        answers={question.answers || []}
+        answerTitles={answerTitles}
+        submitAndNext={submitAndNext}
+      />
     </div>
   )
 }

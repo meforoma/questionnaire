@@ -31,5 +31,6 @@ export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type PersistedAnswers = ReturnType<typeof persistedAnswers>;
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

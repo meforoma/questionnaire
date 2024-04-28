@@ -20,8 +20,8 @@ export enum QuestionIds {
 export type Replacements = Record<string, Record<string, string>>;
 
 export enum QuestionTypes {
-  singleAnswer = 'singleOption',
-  multipleAnswers = 'multipleOption',
+  singleChoice = 'singleChoice',
+  multipleChoice = 'multipleChoice',
   text = 'text',
 }
 
@@ -35,8 +35,8 @@ export interface BaseQuestion {
   title: string;
   questionType: QuestionTypes;
   nextQuestionId?: QuestionIds;
-  nextInfoId?: InfoIds;
-  answers: BaseAnswer[];
+  nextInfoId?: QuestionIds;
+  answers?: BaseAnswer[];
   subTitle?: string;
   isFinalQuestion?: boolean;
 }
