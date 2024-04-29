@@ -1,10 +1,10 @@
-import { BaseAnswer } from "@/data/types";
-import { FC, useState } from "react";
+import { BaseAnswer } from '@/data/types';
+import { FC, useState } from 'react';
 
 type Props = {
-  answers?: BaseAnswer[],
-  submitAndNext: (value: string) => void;
-  answerTitles: string[];
+  answers?: BaseAnswer[]
+  submitAndNext: (value: string) => void
+  answerTitles: string[]
 };
 
 export const TextAnswer: FC<Props> = ({
@@ -39,5 +39,5 @@ export const TextAnswer: FC<Props> = ({
         next
       </button>
     </form>
-  )
+  );
 };

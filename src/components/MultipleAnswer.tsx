@@ -1,7 +1,7 @@
-import { BaseAnswer, BaseQuestion } from "@/data/types";
-import { toSentenceCase } from "@/utils/toSentenceCase";
-import { ListItemButton } from "@mui/material";
-import { FC, useState } from "react";
+import { BaseAnswer } from '@/data/types';
+import { toSentenceCase } from '@/utils/toSentenceCase';
+import { ListItemButton } from '@mui/material';
+import { FC, useState } from 'react';
 
 type Props = {
   answers: BaseAnswer[];
@@ -29,7 +29,7 @@ export const MultipleAnswer: FC<Props> = ({
     } else {
       setAnswersArray([...answersArray, answer.title]);
     }
-  }
+  };
 
   return (
     <form onSubmit={onSubmit}>
@@ -46,7 +46,7 @@ export const MultipleAnswer: FC<Props> = ({
                   #543C97 80%,
                   #6939A1 97%
                 )`,
-                color: "white",
+                color: 'white',
               }
               : {}}
           >

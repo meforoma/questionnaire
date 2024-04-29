@@ -1,12 +1,12 @@
 import {
   configPool,
-} from "@/data/config"
+} from '@/data/config';
 import {
   BaseQuestion,
   QuestionIds,
-} from "@/data/types";
-import { QuestionLayout } from "@@/layouts/QuestionLayout";
-import ReduxProvider from "@@/redux/provider";
+} from '@/data/types';
+import { QuestionLayout } from '@@/layouts/QuestionLayout';
+import ReduxProvider from '@@/redux/provider';
 
 export const getStaticPaths = async () => {
   const paths = Object.values({...QuestionIds})
@@ -15,24 +15,23 @@ export const getStaticPaths = async () => {
     }));
 
   // other routes -> 404
-  return { paths, fallback: false }
-}
+  return { paths, fallback: false };
+};
 
-export const getStaticProps = ({ params }: {
-    params: { id: QuestionIds},
-  }) => {
+export const getStaticProps = (
+  { params }: { params: { id: QuestionIds} },
+) => {
   const config = configPool[params.id];
 
-  return { props: { question: config } }
-}
+  return { props: { question: config } };
+};
 
 export default function Question(
-  { question }: { question: BaseQuestion }
+  { question }: { question: BaseQuestion },
 ) {
-
   return (
     <ReduxProvider>
       <QuestionLayout question={question} />
     </ReduxProvider>
-  )
+  );
 }

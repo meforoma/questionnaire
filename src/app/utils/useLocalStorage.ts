@@ -20,9 +20,7 @@ export function useLocalStorage<T>(
     return item && item !== String(undefined)
       ? JSON.parse(item)
       : initialValue;
-    },
-    [initialValue, key, storage],
-  );
+  }, [initialValue, key, storage]);
 
   const [storedValue, setStoredValue] = useState(readFromStorage());
 

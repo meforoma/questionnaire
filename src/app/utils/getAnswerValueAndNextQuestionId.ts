@@ -1,4 +1,4 @@
-import { BaseAnswer, BaseQuestion, QuestionIds } from "@/data/types";
+import { BaseAnswer, BaseQuestion, QuestionIds } from '@/data/types';
 
 export const getAnswerValueAndNextQuestionId = (
   answer: BaseAnswer | string | string[],

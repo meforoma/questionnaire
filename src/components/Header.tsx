@@ -1,9 +1,9 @@
-import { QuestionIds } from "@/data/types";
-import { resetAnswers } from "@@/redux/features/answersSlice";
-import { AppDispatch } from "@@/redux/store";
-import { IconButton } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { QuestionIds } from '@/data/types';
+import { resetAnswers } from '@@/redux/features/answersSlice';
+import { AppDispatch } from '@@/redux/store';
+import { IconButton } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
 
 export const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -11,7 +11,7 @@ export const Header = () => {
 
   const navigateToEntryQuestion = () => {
     router.push(`/question/${QuestionIds.entry}`);
-  }
+  };
 
   return (
     <header>

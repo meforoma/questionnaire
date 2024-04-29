@@ -1,7 +1,25 @@
 {
-  "extends": ["next/core-web-vitals"],
+  "extends": [
+    "next/core-web-vitals",
+    "prettier"
+  ],
   "rules": {
-    "no-trailing-spaces": "error"
-    // "no-unused-vars": "error"
-  }
+    "no-trailing-spaces": "error",
+    "arrow-parens": ["error", "always"],
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "no-console": ["error"],
+    "semi": "error",
+    "indent": ["error", 2]
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "excludedFiles": [
+        "src/app/data/**"
+      ],
+      "rules": {
+        "no-unused-vars": "off"
+      }
+    }
+  ]
 }

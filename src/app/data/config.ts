@@ -3,8 +3,8 @@ import {
   QuestionIds,
   QuestionTypes,
   Replacements,
-} from "@/data/types";
-import { objectifyTitles } from "@/data/utils";
+} from '@/data/types';
+import { objectifyTitles } from '@/data/utils';
 
 export const replacements: Replacements = {
   [QuestionIds.isParent]: {

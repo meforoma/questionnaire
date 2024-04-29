@@ -1,7 +1,7 @@
-import { BaseAnswer, BaseQuestion } from "@/data/types";
-import { toSentenceCase } from "@/utils/toSentenceCase";
-import { ListItemButton } from "@mui/material";
-import { FC } from "react";
+import { BaseAnswer } from '@/data/types';
+import { toSentenceCase } from '@/utils/toSentenceCase';
+import { ListItemButton } from '@mui/material';
+import { FC } from 'react';
 
 type Props = {
   answers: BaseAnswer[];
@@ -28,7 +28,7 @@ export const SingleAnswer: FC<Props> = ({
                 #543C97 80%,
                 #6939A1 97%
               )`,
-              color: "white",
+              color: 'white',
             }
             : {}}
         >
@@ -36,5 +36,5 @@ export const SingleAnswer: FC<Props> = ({
         </ListItemButton>
       </div>
     ))}
-  </>)
+  </>);
 };

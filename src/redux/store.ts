@@ -7,7 +7,7 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
   key: 'answers',
   storage,
-}
+};
 
 const persistedAnswers = persistReducer(persistConfig, answers);
 
@@ -15,7 +15,7 @@ export const store = configureStore({
   reducer: {
     persistedAnswers,
   },
-  // middleware: [thunk],
+  // -> // middleware: [thunk],
   /*
     redux-persist failed to create sync storage. falling back to noop storage.
     A non-serializable value was detected in an action, in the path: `register`. Value: [Function: register]

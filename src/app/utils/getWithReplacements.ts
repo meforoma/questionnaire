@@ -1,6 +1,6 @@
-import { PersistedAnswers, RootState } from "@@/redux/store";
-import { toSentenceCase } from "@/utils/toSentenceCase";
-import { replacements } from "@/data/config";
+import { PersistedAnswers } from '@@/redux/store';
+import { toSentenceCase } from '@/utils/toSentenceCase';
+import { replacements } from '@/data/config';
 
 export const getWithReplacements = (
   persistedAnswers: PersistedAnswers,
@@ -28,7 +28,7 @@ export const getWithReplacements = (
     } else {
       substitutes[match] = configuredReplacement[replacementAnswer];
     }
-  })
+  });
 
   const withReplacements = textToProcess.replace(
     regexp,

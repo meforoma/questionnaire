@@ -1,5 +1,5 @@
-import { useAppSelector } from "@@/redux/store";
-import { getWithReplacements } from "@/utils/getWithReplacements";
+import { useAppSelector } from '@@/redux/store';
+import { getWithReplacements } from '@/utils/getWithReplacements';
 
 export const useReplacements = (
   textToProcess: string,

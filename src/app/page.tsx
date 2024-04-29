@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { useRouter } from "next/navigation";
-import styles from "./page.module.css";
-import { QuestionIds } from "@/data/types";
+import { useRouter } from 'next/navigation';
+import styles from './page.module.css';
+import { QuestionIds } from '@/data/types';
 
 export default function Home() {
   const router = useRouter();
