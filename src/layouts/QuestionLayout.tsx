@@ -12,10 +12,35 @@ import { useReplacements } from '@/utils/useReplacements';
 import { getAnswerValueAndNextQuestionId } from '@/utils/getAnswerValueAndNextQuestionId';
 import { useGetQuestionComponent } from '@/utils/useGetQuestionComponent';
 import { Header } from '@@/components/Header';
+import CssBaseline from '@mui/material/CssBaseline';
+import { Box, Container, GlobalStyles, SxProps, Typography } from '@mui/material';
 
 type Props = {
   question: BaseQuestion;
 }
+
+export const containerStyle: SxProps = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: '16px 0 0',
+  maxWidth: '330px',
+};
+export const boxStyle: SxProps = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '25px',
+  width: '100%',
+};
+export const bodyGlobalStyle = (
+  <GlobalStyles
+    styles={{
+      body: {
+        backgroundColor: '#FFF0F0',
+      },
+    }}
+  />
+);
 
 export const QuestionLayout: FC<Props> = ({
   question,
@@ -72,19 +97,39 @@ export const QuestionLayout: FC<Props> = ({
   );
 
   return (
-    <div>
-      <Header />
+    <>
+      <CssBaseline />
+      {bodyGlobalStyle}
+      <Container
+        sx={containerStyle}
+      >
+        <Box sx={boxStyle}>
+          <Header />
 
-      <h1>{normalisedTitle}</h1>
-      {normalisedSubTitle && (
-        <p>{normalisedSubTitle}</p>
-      )}
+          <Typography
+            fontSize={24}
+            fontWeight={700}
+            textAlign={'center'}
+          >
+            {normalisedTitle}
+          </Typography>
 
-      <Component
-        answers={question.answers || []}
-        answerTitles={answerTitles}
-        submitAndNext={submitAndNext}
-      />
-    </div>
+          {normalisedSubTitle && (
+            <Typography
+              variant='subtitle1'
+              textAlign={'center'}
+            >
+              {normalisedSubTitle}
+            </Typography>
+          )}
+
+          <Component
+            answers={question.answers || []}
+            answerTitles={answerTitles}
+            submitAndNext={submitAndNext}
+          />
+        </Box>
+      </Container>
+    </>
   );
 };

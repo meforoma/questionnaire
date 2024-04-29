@@ -153,7 +153,7 @@ const relationshipFlow = {
     questionType: QuestionTypes.singleChoice,
     nextQuestionId: QuestionIds.partnerType,
     answers: objectifyTitles([
-      `i was unhappy with low things were going in my relationship`,
+      `i was unhappy with how things were going in my relationship`,
       `i was unhappy with parts of my relationship, but some thing were working`,
       `i was generally happy with my relationship`,
       `I’ve never been in a relationship`,

@@ -1,5 +1,7 @@
 import { BaseAnswer } from '@/data/types';
+import { Input } from '@mui/material';
 import { FC, useState } from 'react';
+import { NextButton } from './NextButton';
 
 type Props = {
   answers?: BaseAnswer[]
@@ -22,9 +24,20 @@ export const TextAnswer: FC<Props> = ({
     setValue(e.target.value);
   };
 
+  const formId = 'text-answer-form';
+
   return (
-    <form onSubmit={onSubmit}>
-      <input
+    <form
+      onSubmit={onSubmit}
+      id={formId}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        width: '100%',
+      }}
+    >
+      <Input
         required
         type="text"
         placeholder="..."
@@ -32,12 +45,10 @@ export const TextAnswer: FC<Props> = ({
         value={value}
       />
 
-      <button
-        type="submit"
+      <NextButton
+        formId={formId}
         disabled={!value}
-      >
-        next
-      </button>
+      />
     </form>
   );
 };

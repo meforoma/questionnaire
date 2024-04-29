@@ -1,7 +1,7 @@
 import { BaseAnswer } from '@/data/types';
-import { toSentenceCase } from '@/utils/toSentenceCase';
-import { ListItemButton } from '@mui/material';
+import { Box, SxProps } from '@mui/material';
 import { FC } from 'react';
+import { AnswerButton } from './AnswerButton';
 
 type Props = {
   answers: BaseAnswer[];
@@ -9,32 +9,29 @@ type Props = {
   submitAndNext: (answer: BaseAnswer | string | string[]) => void
 };
 
+export const answersBoxStyle: SxProps = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  gap: '20px',
+  position: 'relative',
+};
+
 export const SingleAnswer: FC<Props> = ({
   answers,
   answerTitles,
   submitAndNext,
 }: Props) => {
-  return (<>
-    {answers.map((answer) => (
-      <div key={answer.title} style={{ margin: '12px 0' }}>
-        <ListItemButton
+  return (
+    <Box sx={answersBoxStyle}>
+      {answers.map((answer) => (
+        <AnswerButton
+          key={answer.title}
+          answer={answer}
+          isSelected={answerTitles?.includes(answer.title)}
           onClick={() => submitAndNext(answer)}
-          style={answerTitles?.includes(answer.title)
-            ? {
-              background: `linear-gradient(
-                to bottom,
-                #141333 0%,
-                #202261 44%,
-                #543C97 80%,
-                #6939A1 97%
-              )`,
-              color: 'white',
-            }
-            : {}}
-        >
-          {toSentenceCase(answer.title)}
-        </ListItemButton>
-      </div>
-    ))}
-  </>);
+        />
+      ))}
+    </Box>
+  );
 };

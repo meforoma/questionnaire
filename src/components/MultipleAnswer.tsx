@@ -1,12 +1,22 @@
 import { BaseAnswer } from '@/data/types';
-import { toSentenceCase } from '@/utils/toSentenceCase';
-import { ListItemButton } from '@mui/material';
-import { FC, useState } from 'react';
+import { Box } from '@mui/material';
+import { CSSProperties, FC, useState } from 'react';
+import { answersBoxStyle } from './SingleAnswer';
+import { AnswerButton } from './AnswerButton';
+import { NextButton } from './NextButton';
 
 type Props = {
   answers: BaseAnswer[];
   answerTitles: string[];
   submitAndNext: (answer: BaseAnswer | string | string[]) => void
+};
+
+export const formStyle: CSSProperties = {
+  padding: '6px',
+  maxHeight: 'calc(100vh - 270px)',
+  overflowY: 'auto',
+  overflowX: 'hidden',
+  scrollbarWidth: 'thin',
 };
 
 export const MultipleAnswer: FC<Props> = ({
@@ -21,7 +31,7 @@ export const MultipleAnswer: FC<Props> = ({
     submitAndNext(answersArray);
   };
 
-  const onClick = (answer: BaseAnswer) => {
+  const setAnswers = (answer: BaseAnswer) => {
     if (answersArray.includes(answer.title)) {
       setAnswersArray(
         answersArray.filter((title) => title !== answer.title)
@@ -31,36 +41,31 @@ export const MultipleAnswer: FC<Props> = ({
     }
   };
 
-  return (
-    <form onSubmit={onSubmit}>
-      {answers.map((answer) => (
-        <div key={answer.title} style={{ margin: '12px 0' }}>
-          <ListItemButton
-            onClick={() => onClick(answer)}
-            style={answersArray?.includes(answer.title)
-              ? {
-                background: `linear-gradient(
-                  to bottom,
-                  #141333 0%,
-                  #202261 44%,
-                  #543C97 80%,
-                  #6939A1 97%
-                )`,
-                color: 'white',
-              }
-              : {}}
-          >
-            {toSentenceCase(answer.title)}
-          </ListItemButton>
-        </div>
-      ))}
+  const formId = 'multiple-answer-form';
 
-      <button
-        type="submit"
-        disabled={!answersArray.length}
+  return (
+    <>
+      <form
+        onSubmit={onSubmit}
+        style={formStyle}
+        id={formId}
       >
-        next
-      </button>
-    </form>
+        <Box sx={answersBoxStyle}>
+          {answers.map((answer) => (
+            <AnswerButton
+              key={answer.title}
+              answer={answer}
+              isSelected={answersArray?.includes(answer.title)}
+              onClick={() => setAnswers(answer)}
+            />
+          ))}
+        </Box>
+      </form>
+
+      <NextButton
+        formId={formId}
+        disabled={!answersArray.length}
+      />
+    </>
   );
 };
