@@ -1,7 +1,7 @@
 import { QuestionTypes } from '@/data/types';
-import { MultipleAnswer } from '@@/components/MultipleAnswer';
-import { SingleAnswer } from '@@/components/SingleAnswer';
-import { TextAnswer } from '@@/components/TextAnswer';
+import { MultipleAnswer } from '@@/components/answer/MultipleAnswer';
+import { SingleAnswer } from '@@/components/answer/SingleAnswer';
+import { TextAnswer } from '@@/components/answer/TextAnswer';
 
 const componentsMap = {
   [QuestionTypes.singleChoice]: SingleAnswer,

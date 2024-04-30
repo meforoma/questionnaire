@@ -22,6 +22,7 @@ export const defaultAnswerButtonStyle: SxProps = {
   borderRadius: '16px',
   boxShadow: '2px 2px 6px rgba(84, 60, 151, 0.25)',
   textAlign: 'center',
+  color: 'black',
 
   display: 'flex',
   justifyContent: 'center',

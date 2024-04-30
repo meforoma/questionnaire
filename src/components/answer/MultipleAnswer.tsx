@@ -1,9 +1,9 @@
 import { BaseAnswer } from '@/data/types';
 import { Box } from '@mui/material';
 import { CSSProperties, FC, useState } from 'react';
-import { answersBoxStyle } from './SingleAnswer';
-import { AnswerButton } from './AnswerButton';
-import { NextButton } from './NextButton';
+import { answersBoxStyle } from '@@/components/answer/SingleAnswer';
+import { AnswerButton } from '@@/components/AnswerButton';
+import { NextButton } from '@@/components/NextButton';
 
 type Props = {
   answers: BaseAnswer[];

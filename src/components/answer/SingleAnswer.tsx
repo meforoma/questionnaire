@@ -1,7 +1,7 @@
 import { BaseAnswer } from '@/data/types';
 import { Box, SxProps } from '@mui/material';
 import { FC } from 'react';
-import { AnswerButton } from './AnswerButton';
+import { AnswerButton } from '@@/components/AnswerButton';
 
 type Props = {
   answers: BaseAnswer[];

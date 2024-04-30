@@ -32,11 +32,29 @@ export const boxStyle: SxProps = {
   gap: '25px',
   width: '100%',
 };
+export const infoBodyStyle = (
+  <GlobalStyles
+    styles={{
+      body: {
+        height: '100vh',
+        background: `linear-gradient(
+          to bottom,
+          #141333 0%,
+          #202261 44%,
+          #543C97 80%,
+          #6939A1 97%
+        )`,
+        color: 'white',
+      },
+    }}
+  />
+);
 export const bodyGlobalStyle = (
   <GlobalStyles
     styles={{
       body: {
         backgroundColor: '#FFF0F0',
+        height: '100vh',
       },
     }}
   />
@@ -95,11 +113,17 @@ export const QuestionLayout: FC<Props> = ({
   const Component = useGetQuestionComponent(
     question.questionType,
   );
+  const isInfo = question.id.includes('info');
 
   return (
     <>
       <CssBaseline />
-      {bodyGlobalStyle}
+      {
+        isInfo
+          ? infoBodyStyle
+          : bodyGlobalStyle
+      }
+
       <Container
         sx={containerStyle}
       >
@@ -116,7 +140,9 @@ export const QuestionLayout: FC<Props> = ({
 
           {normalisedSubTitle && (
             <Typography
-              variant='subtitle1'
+              fontSize={14}
+              fontWeight={400}
+              lineHeight={'25px'}
               textAlign={'center'}
             >
               {normalisedSubTitle}

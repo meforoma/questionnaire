@@ -8,7 +8,7 @@ import { useSummaryReplacements } from '@/utils/useSummaryReplacements';
 import { Header } from '@@/components/Header';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Box, Container, List, ListItem, Typography } from '@mui/material';
-import { bodyGlobalStyle, boxStyle, containerStyle } from './QuestionLayout';
+import { bodyGlobalStyle, boxStyle, containerStyle } from '@@/layouts/QuestionLayout';
 
 const listStyle = {
   display: 'flex',

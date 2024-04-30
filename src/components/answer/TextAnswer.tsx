@@ -1,7 +1,7 @@
 import { BaseAnswer } from '@/data/types';
 import { Input } from '@mui/material';
 import { FC, useState } from 'react';
-import { NextButton } from './NextButton';
+import { NextButton } from '@@/components/NextButton';
 
 type Props = {
   answers?: BaseAnswer[]

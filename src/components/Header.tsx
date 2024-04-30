@@ -39,7 +39,13 @@ export const Header = () => {
           },
         }}
       >
-        <Image src='/headerLogo.svg' alt='logo' width={15} height={16} style={{ display: 'flex', justifyContent: 'center' }}/>
+        <Image
+          src='/headerLogo.svg'
+          alt='logo'
+          width={15}
+          height={16}
+          style={{ display: 'flex', justifyContent: 'center' }}
+        />
       </IconButton>
 
       <IconButton
