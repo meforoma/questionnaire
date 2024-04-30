@@ -1,6 +1,6 @@
 The project is a survey builder that allows creating surveys based on configurable questions and info screen(s) - configured by a [`config.ts`](src/app/data/config.ts) file.
 
-[Deployed on Vercel](https://survey-builder.vercel.app/)
+[Deployed on Vercel](https://questionnaire-rose.vercel.app)
 
 Traditionally, run `npm install` and `npm run dev` to start the project locally.
 
