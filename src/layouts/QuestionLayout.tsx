@@ -5,60 +5,18 @@ import { BaseAnswer, BaseQuestion } from '@/data/types';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from '@@/redux/store';
-import { updateAnswer } from '@@/redux/features/answersSlice';
-import { useLocalStorage } from '@/utils/useLocalStorage';
+import { registerAnswer } from '@@/redux/features/answersSlice';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { LOCAL_STORAGE_KEYS } from '@/utils/constants';
-import { useReplacements } from '@/utils/useReplacements';
+import { useReplacements } from '@/hooks/useReplacements';
 import { getAnswerValueAndNextQuestionId } from '@/utils/getAnswerValueAndNextQuestionId';
-import { useGetQuestionComponent } from '@/utils/useGetQuestionComponent';
-import { Header } from '@@/components/Header';
-import CssBaseline from '@mui/material/CssBaseline';
-import { Box, Container, GlobalStyles, SxProps, Typography } from '@mui/material';
+import { useGetQuestionComponent } from '@/hooks/useGetQuestionComponent';
+import { Typography } from '@mui/material';
+import { BaselineContainer } from '@@/components/BaselineContainer';
 
 type Props = {
   question: BaseQuestion;
 }
-
-export const containerStyle: SxProps = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  padding: '16px 0 0',
-  maxWidth: '330px',
-};
-export const boxStyle: SxProps = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '25px',
-  width: '100%',
-};
-export const infoBodyStyle = (
-  <GlobalStyles
-    styles={{
-      body: {
-        height: '100vh',
-        background: `linear-gradient(
-          to bottom,
-          #141333 0%,
-          #202261 44%,
-          #543C97 80%,
-          #6939A1 97%
-        )`,
-        color: 'white',
-      },
-    }}
-  />
-);
-export const bodyGlobalStyle = (
-  <GlobalStyles
-    styles={{
-      body: {
-        backgroundColor: '#FFF0F0',
-        height: '100vh',
-      },
-    }}
-  />
-);
 
 export const QuestionLayout: FC<Props> = ({
   question,
@@ -79,13 +37,14 @@ export const QuestionLayout: FC<Props> = ({
     }`);
   };
 
-  const submitAndNext = (answer: BaseAnswer | string | string[]) => {
+  // TODO: rename to comply with singleResponsibility
+  const handleAnswer = (answer: BaseAnswer | string | string[]) => {
     const [answerValue, nextQuestionId] = getAnswerValueAndNextQuestionId(
       answer,
       question,
     );
 
-    dispatch(updateAnswer({
+    dispatch(registerAnswer({
       questionId: question.id,
       answer: answerValue,
     }));
@@ -113,49 +72,36 @@ export const QuestionLayout: FC<Props> = ({
   const Component = useGetQuestionComponent(
     question.questionType,
   );
+
+  // TODO: not reliable, refactor
   const isInfo = question.id.includes('info');
 
   return (
-    <>
-      <CssBaseline />
-      {
-        isInfo
-          ? infoBodyStyle
-          : bodyGlobalStyle
-      }
-
-      <Container
-        sx={containerStyle}
+    <BaselineContainer>
+      <Typography
+        fontSize={24}
+        fontWeight={700}
+        textAlign={'center'}
       >
-        <Box sx={boxStyle}>
-          <Header />
+        {normalisedTitle}
+      </Typography>
 
-          <Typography
-            fontSize={24}
-            fontWeight={700}
-            textAlign={'center'}
-          >
-            {normalisedTitle}
-          </Typography>
+      {normalisedSubTitle && (
+        <Typography
+          fontSize={14}
+          fontWeight={400}
+          lineHeight={'25px'}
+          textAlign={'center'}
+        >
+          {normalisedSubTitle}
+        </Typography>
+      )}
 
-          {normalisedSubTitle && (
-            <Typography
-              fontSize={14}
-              fontWeight={400}
-              lineHeight={'25px'}
-              textAlign={'center'}
-            >
-              {normalisedSubTitle}
-            </Typography>
-          )}
-
-          <Component
-            answers={question.answers || []}
-            answerTitles={answerTitles}
-            submitAndNext={submitAndNext}
-          />
-        </Box>
-      </Container>
-    </>
+      <Component
+        answers={question.answers || []}
+        answerTitles={answerTitles}
+        handleAnswer={handleAnswer}
+      />
+    </BaselineContainer>
   );
 };

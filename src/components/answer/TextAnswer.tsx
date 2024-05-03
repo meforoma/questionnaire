@@ -1,23 +1,24 @@
 import { BaseAnswer } from '@/data/types';
 import { Input } from '@mui/material';
 import { FC, useState } from 'react';
-import { NextButton } from '@@/components/NextButton';
+import { NextButton } from '@@/components/NextButton/NextButton';
+import { textAnswerFormStyle } from '@@/components/Answer/styles';
 
 type Props = {
   answers?: BaseAnswer[]
-  submitAndNext: (value: string) => void
+  handleAnswer: (value: string) => void
   answerTitles: string[]
 };
 
 export const TextAnswer: FC<Props> = ({
-  submitAndNext,
+  handleAnswer,
   answerTitles,
 }: Props) => {
   const [value, setValue] = useState((answerTitles || []).join(''));
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    submitAndNext(value);
+    handleAnswer(value);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,12 +31,7 @@ export const TextAnswer: FC<Props> = ({
     <form
       onSubmit={onSubmit}
       id={formId}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
-        width: '100%',
-      }}
+      style={textAnswerFormStyle}
     >
       <Input
         required

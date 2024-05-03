@@ -1,12 +1,17 @@
 import { QuestionIds } from '@/data/types';
 import { resetAnswers } from '@@/redux/features/answersSlice';
 import { AppDispatch } from '@@/redux/store';
-import { Box, IconButton, SxProps } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import LoopIcon from '@mui/icons-material/Loop';
 import Image from 'next/image';
+import {
+  centeredFlex,
+  headerStyle,
+  noHoverStyle,
+} from '@@/components/Header/styles';
 
 export const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -16,9 +21,13 @@ export const Header = () => {
     router.push(`/question/${QuestionIds.entry}`);
   };
 
-  const headerStyle: SxProps = {
-    display: 'flex',
-    justifyContent: 'space-between',
+  const handleReset = () => {
+    dispatch(resetAnswers());
+    navigateToEntryQuestion();
+  };
+
+  const navigateBack = () => {
+    router.back();
   };
 
   return (
@@ -26,35 +35,28 @@ export const Header = () => {
       <IconButton
         title='navigate back'
         color='inherit'
-        onClick={() => router.back()}
+        onClick={navigateBack}
       >
         <ArrowBackIosNewIcon/>
       </IconButton>
 
       <IconButton
         title='logo'
-        sx={{
-          ':hover': {
-            background: 'none',
-          },
-        }}
+        sx={noHoverStyle}
       >
         <Image
           src='/headerLogo.svg'
           alt='logo'
           width={15}
           height={16}
-          style={{ display: 'flex', justifyContent: 'center' }}
+          style={centeredFlex}
         />
       </IconButton>
 
       <IconButton
         title='reset questionnaire'
         color='inherit'
-        onClick={() => {
-          dispatch(resetAnswers());
-          navigateToEntryQuestion();
-        }}
+        onClick={handleReset}
       >
         <LoopIcon/>
       </IconButton>

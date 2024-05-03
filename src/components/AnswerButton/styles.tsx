@@ -1,7 +1,4 @@
-import { BaseAnswer } from '@/data/types';
-import { toSentenceCase } from '@/utils/toSentenceCase';
-import { ListItemButton, SxProps } from '@mui/material';
-import { FC } from 'react';
+import { SxProps } from '@mui/material';
 
 export const selectedAnswerButtonStyle: SxProps = {
   background: `linear-gradient(
@@ -13,6 +10,7 @@ export const selectedAnswerButtonStyle: SxProps = {
   )`,
   color: 'white',
 };
+
 export const defaultAnswerButtonStyle: SxProps = {
   backgroundColor: '#EAEEF7',
   minHeight: '64px',
@@ -32,26 +30,4 @@ export const defaultAnswerButtonStyle: SxProps = {
     ...selectedAnswerButtonStyle,
     scale: '1.02',
   },
-};
-
-export const AnswerButton: FC<{
-  answer: BaseAnswer;
-  isSelected: boolean;
-  onClick: () => void;
-}> = ({ answer, isSelected, onClick }) => {
-  const selectedStyle = isSelected
-    ? selectedAnswerButtonStyle
-    : {};
-
-  return (
-    <ListItemButton
-      sx={{
-        ...defaultAnswerButtonStyle,
-        ...selectedStyle,
-      }}
-      onClick={onClick}
-    >
-      {toSentenceCase(answer.title)}
-    </ListItemButton>
-  );
 };

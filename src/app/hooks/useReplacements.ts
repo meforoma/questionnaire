@@ -1,10 +1,10 @@
 import { useAppSelector } from '@@/redux/store';
-import { getWithReplacements } from '@/utils/getWithReplacements';
+import { applyReplacements } from '@/utils/getWithReplacements';
 
 export const useReplacements = (
   textToProcess: string,
 ) => {
   const persistedAnswers = useAppSelector((state) => (state.persistedAnswers));
 
-  return getWithReplacements(persistedAnswers, textToProcess);
+  return applyReplacements(persistedAnswers, textToProcess);
 };

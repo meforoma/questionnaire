@@ -1,34 +1,26 @@
 import { BaseAnswer } from '@/data/types';
 import { Box } from '@mui/material';
-import { CSSProperties, FC, useState } from 'react';
-import { answersBoxStyle } from '@@/components/answer/SingleAnswer';
-import { AnswerButton } from '@@/components/AnswerButton';
-import { NextButton } from '@@/components/NextButton';
+import { FC, useState } from 'react';
+import { AnswerButton } from '@@/components/AnswerButton/AnswerButton';
+import { NextButton } from '@@/components/NextButton/NextButton';
+import { answersBoxStyle, multipleAnswerFormStyle } from '@@/components/Answer/styles';
 
 type Props = {
   answers: BaseAnswer[];
   answerTitles: string[];
-  submitAndNext: (answer: BaseAnswer | string | string[]) => void
-};
-
-export const formStyle: CSSProperties = {
-  padding: '6px',
-  maxHeight: 'calc(100vh - 270px)',
-  overflowY: 'auto',
-  overflowX: 'hidden',
-  scrollbarWidth: 'thin',
+  handleAnswer: (answer: BaseAnswer | string | string[]) => void
 };
 
 export const MultipleAnswer: FC<Props> = ({
   answers,
   answerTitles,
-  submitAndNext,
+  handleAnswer,
 }: Props) => {
   const [answersArray, setAnswersArray] = useState<string[]>(answerTitles || []);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    submitAndNext(answersArray);
+    handleAnswer(answersArray);
   };
 
   const setAnswers = (answer: BaseAnswer) => {
@@ -47,7 +39,7 @@ export const MultipleAnswer: FC<Props> = ({
     <>
       <form
         onSubmit={onSubmit}
-        style={formStyle}
+        style={multipleAnswerFormStyle}
         id={formId}
       >
         <Box sx={answersBoxStyle}>

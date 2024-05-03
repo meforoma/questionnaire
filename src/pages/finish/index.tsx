@@ -1,10 +1,10 @@
-import { FinishLayout } from '@@/layouts/FinishLayout';
-import ReduxProvider from '@@/redux/provider';
+import { BaselineContainer } from '@@/components/BaselineContainer';
+import { FinishLayout } from '@@/layouts/Finish/FinishLayout';
 
 export default function Finish() {
   return (
-    <ReduxProvider>
+    <BaselineContainer>
       <FinishLayout />
-    </ReduxProvider>
+    </BaselineContainer>
   );
 };
