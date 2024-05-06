@@ -1,10 +1,7 @@
 import { QuestionTypes } from '@/data/types';
-import { MultipleAnswer } from '@@/components/Answer/MultipleAnswer/MultipleAnswer';
-import { SingleAnswer } from '@@/components/Answer/SingleAnswer/SingleAnswer';
-import { TextAnswer } from '@@/components/Answer/TextAnswer/TextAnswer';
-// import { MultipleAnswer } from '@@/components/Answer/MultipleAnswer';
-// import { SingleAnswer } from '@@/components/Answer/SingleAnswer';
-// import { TextAnswer } from '@@/components/Answer/TextAnswer';
+import { MultipleAnswer } from '@@/components/Answer/MultipleAnswer';
+import { SingleAnswer } from '@@/components/Answer/SingleAnswer';
+import { TextAnswer } from '@@/components/Answer/TextAnswer';
 
 const componentsMap = {
   [QuestionTypes.singleChoice]: SingleAnswer,
