@@ -1,11 +1,11 @@
 'use client';
 
 import { FC } from 'react';
-import { BaseAnswer, BaseQuestion } from '@/data/types';
+import { BaseAnswer, BaseQuestion, QuestionIds } from '@/data/types';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from '@@/redux/store';
-import { registerAnswer } from '@@/redux/features/answersSlice';
+import { registerAnswer, purgeOnwardsChainedAnswers } from '@@/redux/features/answersSlice';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { LOCAL_STORAGE_KEYS } from '@/utils/constants';
 import { useReplacements } from '@/hooks/useReplacements';
@@ -30,6 +30,10 @@ export const QuestionLayout: FC<Props> = ({
   const dispatch = useDispatch<AppDispatch>();
 
   const navigateToNext = (nextQuestionId?: string) => {
+    if (question?.isFinalQuestion) {
+      return router.push(`/${QuestionIds.finish}`);
+    }
+
     router.push(`/question/${
       question.nextInfoId
       || nextQuestionId
@@ -37,12 +41,25 @@ export const QuestionLayout: FC<Props> = ({
     }`);
   };
 
+  const persistedAnswers = useAppSelector((state) => (state.persistedAnswers));
+  const persistedAnswer = persistedAnswers[question.id]?.titles;
+
   const handleAnswer = (answer: BaseAnswer | string | string[]) => {
     const answerValue = resolveAnswer(answer);
     const nextQuestionId = resolveNextQuestionId(
       answer,
       question,
     );
+
+    const isAnswerPristine = (
+      answerValue.join() === persistedAnswer?.join()
+    );
+
+    if (persistedAnswer && !isAnswerPristine) {
+      dispatch(purgeOnwardsChainedAnswers({
+        questionId: question.id,
+      }));
+    }
 
     dispatch(registerAnswer({
       questionId: question.id,
@@ -53,18 +70,8 @@ export const QuestionLayout: FC<Props> = ({
       storeNextQuestionId(nextQuestionId);
     }
 
-    if (question?.isFinalQuestion) {
-      router.push(`/finish`);
-
-      return;
-    }
-
     navigateToNext(nextQuestionId);
   };
-
-  const persistedAnswers = useAppSelector((state) => (state.persistedAnswers));
-
-  const answerTitles = persistedAnswers[question.id]?.titles;
 
   const normalisedTitle = useReplacements(question.title);
   const normalisedSubTitle = useReplacements(question.subTitle || '');
@@ -98,7 +105,7 @@ export const QuestionLayout: FC<Props> = ({
 
       <Component
         answers={question.answers || []}
-        answerTitles={answerTitles}
+        persistedAnswer={persistedAnswer}
         handleAnswer={handleAnswer}
       />
     </BaselineContainer>

@@ -12,25 +12,6 @@ type State = {
 
 const initialState: State = {};
 
-const getOnwardsPurgedState = (args: {
-  state: State,
-  questionId: string,
-}) => {
-  const { state, questionId } = args;
-  const chainedOnwardQuestionIds = Object.entries(state)
-    .filter(([id, values]) => (
-      values.answerOrder >= state[questionId].answerOrder
-    ))
-    .map(([id]) => id);
-
-  const newState = { ...state };
-  chainedOnwardQuestionIds.forEach((id) => {
-    delete newState[id];
-  });
-
-  return newState;
-};
-
 export const answers = createSlice({
   name: 'answers',
   initialState,
@@ -41,44 +22,40 @@ export const answers = createSlice({
     ) => {
       const { questionId, answer } = action.payload;
 
-      const storedAnswer = state[questionId];
-      const storedAnswerTitles = storedAnswer?.titles;
-      const isAnswerPristine = (
-        storedAnswerTitles
-        && storedAnswerTitles.join() === answer.join()
-      );
-
-      if (isAnswerPristine) {
-        return state;
-      }
-
-      if (!storedAnswerTitles) {
-        return {
-          ...state,
-          [questionId]: {
-            titles: answer,
-            answerOrder: Object.keys(state).length,
-          },
-        };
-      }
-
-      const purgedState = getOnwardsPurgedState({state, questionId});
-
       return {
-        ...purgedState,
+        ...state,
         [questionId]: {
           titles: answer,
           answerOrder: Object.keys(state).length,
         },
       };
     },
+    purgeOnwardsChainedAnswers: (
+      state,
+      action: PayloadAction<{ questionId: string }>
+    ) => {
+      const { questionId } = action.payload;
 
+      const chainedOnwardQuestionIds = Object.entries(state)
+        .filter(([id, values]) => (
+          values.answerOrder >= state[questionId].answerOrder
+        ))
+        .map(([id]) => id);
+
+      const newState = { ...state };
+      chainedOnwardQuestionIds.forEach((id) => {
+        delete newState[id];
+      });
+
+      return newState;
+    },
     resetAnswers: () => initialState,
   },
 });
 
 export const {
   registerAnswer,
+  purgeOnwardsChainedAnswers,
   resetAnswers,
 } = answers.actions;
 

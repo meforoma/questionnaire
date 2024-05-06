@@ -6,13 +6,13 @@ import { answersBoxStyle } from '@@/components/answer/styles';
 
 type Props = {
   answers: BaseAnswer[];
-  answerTitles: string[];
+  persistedAnswer: string[];
   handleAnswer: (answer: BaseAnswer | string | string[]) => void
 };
 
 export const SingleAnswer: FC<Props> = ({
   answers,
-  answerTitles,
+  persistedAnswer,
   handleAnswer,
 }: Props) => {
   return (
@@ -21,7 +21,7 @@ export const SingleAnswer: FC<Props> = ({
         <AnswerButton
           key={answer.title}
           answer={answer}
-          isSelected={answerTitles?.includes(answer.title)}
+          isSelected={persistedAnswer?.includes(answer.title)}
           onClick={() => handleAnswer(answer)}
         />
       ))}

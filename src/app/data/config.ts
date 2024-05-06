@@ -28,8 +28,8 @@ export const entryQuestion = {
 };
 
 const finalQuestion = {
-  [QuestionIds.final]: {
-    id: QuestionIds.final,
+  [QuestionIds.finish]: {
+    id: QuestionIds.finish,
     title: `where did you hear about us?`,
     questionType: QuestionTypes.multipleChoice,
     isFinalQuestion: true,
@@ -118,7 +118,7 @@ const singleFLow = {
     id: QuestionIds.traitsMostImportant,
     title: `what is most important to you?`,
     questionType: QuestionTypes.singleChoice,
-    nextQuestionId: QuestionIds.final,
+    nextQuestionId: QuestionIds.finish,
     answers: objectifyTitles([
       `success`,
       `romance`,
@@ -130,7 +130,7 @@ const singleFLow = {
     id: QuestionIds.traitsEmotionalControl,
     title: `is emotional control tricky for you?`,
     questionType: QuestionTypes.singleChoice,
-    nextQuestionId: QuestionIds.final,
+    nextQuestionId: QuestionIds.finish,
     answers: objectifyTitles([
       `yes`,
       `sometimes`,
@@ -196,7 +196,7 @@ const relationshipFlow = {
     id: QuestionIds.relationshipGoals,
     title: `when you think about your relationship goals, you feel...?`,
     questionType: QuestionTypes.singleChoice,
-    nextQuestionId: QuestionIds.final,
+    nextQuestionId: QuestionIds.finish,
     answers: objectifyTitles([
       `optimistic! they are totally doable, with some guidance`,
       `cautious. i’ve struggled before, but i’m hopeful`,

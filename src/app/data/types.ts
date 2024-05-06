@@ -1,6 +1,6 @@
 export enum QuestionIds {
   entry = 'entry',
-  final = 'final',
+  finish = 'finish',
   gender = 'gender',
   relationship = 'relationship',
   isSingleParent = 'is-single-parent',

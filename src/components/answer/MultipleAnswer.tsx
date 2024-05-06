@@ -8,16 +8,16 @@ import styles from '@@/components/answer/styles.module.css';
 
 type Props = {
   answers: BaseAnswer[];
-  answerTitles: string[];
+  persistedAnswer: string[];
   handleAnswer: (answer: BaseAnswer | string | string[]) => void
 };
 
 export const MultipleAnswer: FC<Props> = ({
   answers,
-  answerTitles,
+  persistedAnswer,
   handleAnswer,
 }: Props) => {
-  const [answersArray, setAnswersArray] = useState<string[]>(answerTitles || []);
+  const [answersArray, setAnswersArray] = useState<string[]>(persistedAnswer || []);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

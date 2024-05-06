@@ -7,14 +7,14 @@ import styles from '@@/components/answer/styles.module.css';
 type Props = {
   answers?: BaseAnswer[]
   handleAnswer: (value: string) => void
-  answerTitles: string[]
+  persistedAnswer: string[]
 };
 
 export const TextAnswer: FC<Props> = ({
   handleAnswer,
-  answerTitles,
+  persistedAnswer,
 }: Props) => {
-  const [value, setValue] = useState((answerTitles || []).join(''));
+  const [value, setValue] = useState((persistedAnswer || []).join(''));
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
