@@ -25,6 +25,11 @@ export enum QuestionTypes {
   text = 'text',
 }
 
+export enum CustomStyleNames {
+  default = 'default',
+  infoPurple = 'infoPurple',
+}
+
 export interface BaseAnswer {
   title: string;
   nextQuestionId?: QuestionIds;
@@ -39,4 +44,5 @@ export interface BaseQuestion {
   answers?: BaseAnswer[];
   subTitle?: string;
   isFinalQuestion?: boolean;
+  customStyleName?: CustomStyleNames;
 }

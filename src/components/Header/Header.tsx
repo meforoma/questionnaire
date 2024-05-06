@@ -8,7 +8,6 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import LoopIcon from '@mui/icons-material/Loop';
 import Image from 'next/image';
 import {
-  centeredFlex,
   headerStyle,
   noHoverStyle,
 } from '@@/components/Header/styles';
@@ -31,7 +30,7 @@ export const Header = () => {
   };
 
   return (
-    <Box sx={headerStyle}>
+    <Box component="header" sx={headerStyle}>
       <IconButton
         title='navigate back'
         color='inherit'
@@ -49,7 +48,6 @@ export const Header = () => {
           alt='logo'
           width={15}
           height={16}
-          style={centeredFlex}
         />
       </IconButton>
 

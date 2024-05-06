@@ -12,10 +12,11 @@ type State = {
 
 const initialState: State = {};
 
-const purgeChainedOnwardAnswers = (
+const getOnwardsPurgedState = (args: {
   state: State,
   questionId: string,
-) => {
+}) => {
+  const { state, questionId } = args;
   const chainedOnwardQuestionIds = Object.entries(state)
     .filter(([id, values]) => (
       values.answerOrder >= state[questionId].answerOrder
@@ -61,8 +62,17 @@ export const answers = createSlice({
         };
       }
 
-      return purgeChainedOnwardAnswers(state, questionId);
+      const purgedState = getOnwardsPurgedState({state, questionId});
+
+      return {
+        ...purgedState,
+        [questionId]: {
+          titles: answer,
+          answerOrder: Object.keys(state).length,
+        },
+      };
     },
+
     resetAnswers: () => initialState,
   },
 });

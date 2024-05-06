@@ -1,8 +1,8 @@
 import { BaseAnswer } from '@/data/types';
 import { Input } from '@mui/material';
 import { FC, useState } from 'react';
-import { NextButton } from '@@/components/NextButton/NextButton';
-import { textAnswerFormStyle } from '@@/components/Answer/styles';
+import { NextButton } from '@@/components/NextButton';
+import styles from '@@/components/Answer/styles.module.css';
 
 type Props = {
   answers?: BaseAnswer[]
@@ -31,7 +31,7 @@ export const TextAnswer: FC<Props> = ({
     <form
       onSubmit={onSubmit}
       id={formId}
-      style={textAnswerFormStyle}
+      className={styles.textAnswerForm}
     >
       <Input
         required

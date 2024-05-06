@@ -1,6 +1,7 @@
 import { SxProps } from '@mui/material';
 
 export const selectedAnswerButtonStyle: SxProps = {
+  color: 'white',
   background: `linear-gradient(
     to bottom,
     #141333 0%,
@@ -8,10 +9,10 @@ export const selectedAnswerButtonStyle: SxProps = {
     #543C97 80%,
     #6939A1 97%
   )`,
-  color: 'white',
 };
 
 export const defaultAnswerButtonStyle: SxProps = {
+  color: 'black',
   backgroundColor: '#EAEEF7',
   minHeight: '64px',
   maxWidth: '330px',
@@ -20,14 +21,13 @@ export const defaultAnswerButtonStyle: SxProps = {
   borderRadius: '16px',
   boxShadow: '2px 2px 6px rgba(84, 60, 151, 0.25)',
   textAlign: 'center',
-  color: 'black',
 
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   padding: '12px 20px',
   '&:hover': {
-    ...selectedAnswerButtonStyle,
     scale: '1.02',
+    backgroundColor: 'lightgray',
   },
 };

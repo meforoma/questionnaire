@@ -16,12 +16,14 @@ export const AnswerButton: FC<{
     ? selectedAnswerButtonStyle
     : {};
 
+  const sx = {
+    ...defaultAnswerButtonStyle,
+    ...selectedStyle
+  };
+
   return (
     <ListItemButton
-      sx={{
-        ...defaultAnswerButtonStyle,
-        ...selectedStyle,
-      }}
+      sx={sx}
       onClick={onClick}
     >
       {toSentenceCase(answer.title)}

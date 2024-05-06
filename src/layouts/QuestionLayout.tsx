@@ -9,7 +9,7 @@ import { registerAnswer } from '@@/redux/features/answersSlice';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { LOCAL_STORAGE_KEYS } from '@/utils/constants';
 import { useReplacements } from '@/hooks/useReplacements';
-import { getAnswerValueAndNextQuestionId } from '@/utils/getAnswerValueAndNextQuestionId';
+import { resolveAnswer, resolveNextQuestionId } from '@/utils/answerNextQuestionResolver';
 import { useGetQuestionComponent } from '@/hooks/useGetQuestionComponent';
 import { Typography } from '@mui/material';
 import { BaselineContainer } from '@@/components/BaselineContainer';
@@ -37,9 +37,9 @@ export const QuestionLayout: FC<Props> = ({
     }`);
   };
 
-  // TODO: rename to comply with singleResponsibility
   const handleAnswer = (answer: BaseAnswer | string | string[]) => {
-    const [answerValue, nextQuestionId] = getAnswerValueAndNextQuestionId(
+    const answerValue = resolveAnswer(answer);
+    const nextQuestionId = resolveNextQuestionId(
       answer,
       question,
     );
@@ -73,11 +73,10 @@ export const QuestionLayout: FC<Props> = ({
     question.questionType,
   );
 
-  // TODO: not reliable, refactor
-  const isInfo = question.id.includes('info');
-
   return (
-    <BaselineContainer>
+    <BaselineContainer
+      customStyleName={question?.customStyleName}
+    >
       <Typography
         fontSize={24}
         fontWeight={700}

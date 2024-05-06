@@ -1,9 +1,10 @@
 import { BaseAnswer } from '@/data/types';
 import { Box } from '@mui/material';
 import { FC, useState } from 'react';
-import { AnswerButton } from '@@/components/AnswerButton/AnswerButton';
-import { NextButton } from '@@/components/NextButton/NextButton';
-import { answersBoxStyle, multipleAnswerFormStyle } from '@@/components/Answer/styles';
+import { AnswerButton } from '@@/components/AnswerButton';
+import { NextButton } from '@@/components/NextButton';
+import { answersBoxStyle } from '@@/components/Answer/styles';
+import styles from '@@/components/Answer/styles.module.css';
 
 type Props = {
   answers: BaseAnswer[];
@@ -39,7 +40,7 @@ export const MultipleAnswer: FC<Props> = ({
     <>
       <form
         onSubmit={onSubmit}
-        style={multipleAnswerFormStyle}
+        className={styles.multipleAnswerForm}
         id={formId}
       >
         <Box sx={answersBoxStyle}>
