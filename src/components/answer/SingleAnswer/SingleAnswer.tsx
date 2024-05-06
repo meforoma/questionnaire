@@ -2,7 +2,7 @@ import { BaseAnswer } from '@/data/types';
 import { Box } from '@mui/material';
 import { FC } from 'react';
 import { AnswerButton } from '@@/components/AnswerButton';
-import { answersBoxStyle } from '@@/components/answer/styles';
+import { answersBoxStyle } from '@@/components/Answer/styles';
 
 type Props = {
   answers: BaseAnswer[];

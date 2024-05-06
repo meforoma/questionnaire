@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { FC, useState } from 'react';
 import { AnswerButton } from '@@/components/AnswerButton';
 import { NextButton } from '@@/components/NextButton';
-import { answersBoxStyle } from '@@/components/answer/styles';
+import { answersBoxStyle } from '@@/components/Answer/styles';
 import styles from '@@/components/Answer/styles.module.css';
 
 type Props = {
