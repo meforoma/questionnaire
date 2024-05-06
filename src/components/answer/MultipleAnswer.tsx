@@ -4,7 +4,7 @@ import { FC, useState } from 'react';
 import { AnswerButton } from '@@/components/AnswerButton';
 import { NextButton } from '@@/components/NextButton';
 import { answersBoxStyle } from '@@/components/answer/styles';
-import styles from '@@/components/Answer/styles.module.css';
+import styles from '@@/components/answer/styles.module.css';
 
 type Props = {
   answers: BaseAnswer[];
