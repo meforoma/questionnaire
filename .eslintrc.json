@@ -4,22 +4,28 @@
     "prettier"
   ],
   "rules": {
-    "no-trailing-spaces": "error",
+    "no-trailing-spaces": ["error"],
     "arrow-parens": ["error", "always"],
-    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "quotes": [
+      "error",
+      "single",
+      { "allowTemplateLiterals": true }
+    ],
     "no-console": ["error"],
-    "semi": "error",
-    "indent": ["error", 2]
+    "semi": ["error"],
+    "indent": [
+      "error",
+      2,
+      { "SwitchCase": 1 }
+    ],
+    "react/jsx-props-no-multi-spaces": ["error"]
   },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],
       "excludedFiles": [
         "src/app/data/**"
-      ],
-      "rules": {
-        "no-unused-vars": "off"
-      }
+      ]
     }
   ]
 }
